@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Flanders use case demonstrates B-cubed workflows",
+    "section": "",
+    "text": "This dashboard is currently under development. It will be finished by 2026-05-30.\n\n\n\nThis dashboard showcases developed workflows within the B-cubed project for the region of Flanders, a region of Europe where species occurrence data are abundant.\nThe implemented indicators in this dashboard can be subdivided into:\n\nGeneral biodiversity indicators (based on b3gbi, for instance, cumulative species richness, relative species richness, etc.);\nPhylogenetic indicators (based on pdindicatoR);\nInvasive Alien Species indicators (based on impIndicator, TRIAS and b3alien)"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  }
+]
