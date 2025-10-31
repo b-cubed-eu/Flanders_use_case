@@ -59,14 +59,14 @@ genus,
 genuskey,
 species,
 specieskey,
-PRINTF('%04d-%02d-%02d', \"year\", \"month\", \"day\") yearmonthday,
+\"year\",
 GBIF_EEARGCODE(1000, decimallatitude, decimallongitude, COALESCE(coordinateuncertaintyinmeters, 1000)) eeacellcode,
 IF(ISNULL(orderkey), NULL, SUM(COUNT(*)) OVER (
-  PARTITION BY orderkey, GBIF_EEARGCODE(1000, decimallatitude, decimallongitude, COALESCE(coordinateuncertaintyinmeters, 1000)), PRINTF('%04d-%02d-%02d', \"year\", \"month\", \"day\"))) ordercount,
+  PARTITION BY orderkey, GBIF_EEARGCODE(1000, decimallatitude, decimallongitude, COALESCE(coordinateuncertaintyinmeters, 1000)),\"year\")) ordercount,
 IF(ISNULL(familykey), NULL, SUM(COUNT(*)) OVER (
-  PARTITION BY familykey, GBIF_EEARGCODE(1000, decimallatitude, decimallongitude, COALESCE(coordinateuncertaintyinmeters, 1000)), PRINTF('%04d-%02d-%02d', \"year\", \"month\", \"day\"))) familycount,
+  PARTITION BY familykey, GBIF_EEARGCODE(1000, decimallatitude, decimallongitude, COALESCE(coordinateuncertaintyinmeters, 1000)), \"year\")) familycount,
 IF(ISNULL(genuskey), NULL, SUM(COUNT(*)) OVER (
-  PARTITION BY genuskey, GBIF_EEARGCODE(1000, decimallatitude, decimallongitude, COALESCE(coordinateuncertaintyinmeters, 1000)), PRINTF('%04d-%02d-%02d', \"year\", \"month\", \"day\"))) genuscount,
+  PARTITION BY genuskey, GBIF_EEARGCODE(1000, decimallatitude, decimallongitude, COALESCE(coordinateuncertaintyinmeters, 1000)), \"year\")) genuscount,
 COUNT(*) occurrences,
 MIN(GBIF_TEMPORALUNCERTAINTY(eventdate, eventtime)) mintemporaluncertainty,
 MIN(COALESCE(coordinateuncertaintyinmeters, 1000)) mincoordinateuncertaintyinmeters
@@ -96,7 +96,7 @@ occurrence.genus,
 occurrence.genuskey,
 occurrence.species,
 occurrence.specieskey,
-PRINTF('%04d-%02d-%02d', \"year\", \"month\", \"day\"),
+occurrence.\"year\",
 GBIF_EEARGCODE(1000, decimallatitude, decimallongitude, COALESCE(coordinateuncertaintyinmeters, 1000))"
 
 # nolint end
@@ -105,7 +105,7 @@ birdcube_data_total <- download_occ_cube(
   sql_query = query_ang,
   file = "Angiosperm_data.csv",
   path = data_path,
-  overwrite = FALSE
+  overwrite = TRUE
 )
 
 ```
@@ -121,87 +121,3 @@ glimpse(birdcube_data_total)
 The datacubes cover multiple zones although Flanders is present only in zone 31U. 
 
 
-We load in the UTM grid for Flanders (1 km) and add 31U to the tag names.
-
-```{r}
-# Read UTM 1 km grid and add new column with correct MGRS code
-utm_grid <- read_sf(file.path(data_path, "utm_grid", "utm1_vl.shp"))
-utm_grid <- utm_grid %>%
-  mutate(mgrscode = paste0("31U", TAG))
-
-# Explore dataframe
-glimpse(utm_grid)
-```
-
-We add the geometry to the data layers by taking an inner join.
-
-```{r}
-# Add UTM geometry by taking an inner join
-sampling_framework_abv_sf <- utm_grid %>%
-  inner_join(sampling_framework_abv, by = join_by(mgrscode)) %>%
-  st_sf(sf_column_name = "geometry")
-
-# Visualise spatial distribution sampling framework
-utm_grid %>%
-  left_join(sampling_framework_abv, by = join_by(mgrscode)) %>%
-  st_sf(sf_column_name = "geometry") %>%
-  ggplot() +
-  geom_sf(aes(fill = Stratum),
-          col = alpha("white", 0)) +
-  ggtitle("Sampling framework ABV")
-```
-
-
-
-We select cube data from Flanders and add the geometry to the data layers by taking an inner join.
-
-```{r}
-# Add UTM geometry and select data by taking an inner join
-birdcube_data_total_sf <- utm_grid %>%
-  inner_join(birdcube_data_total, by = join_by(mgrscode)) %>%
-  st_sf(sf_column_name = "geometry")
-```
-
-```{r}
-# Visualise spatial distribution data cube as number of species
-utm_grid %>%
-  left_join(birdcube_data_total %>%
-              group_by(mgrscode) %>%
-              summarise(n_species = n_distinct(species), .groups = "drop"),
-            by = join_by(mgrscode)) %>%
-  ggplot() +
-  geom_sf(aes(fill = n_species), col = alpha("white", 0)) +
-  scale_fill_viridis_c(option = "inferno") +
-  ggtitle("Bird cube data from Flanders")
-```
-
-We see a dotted pattern because of large uncertainty.
-We filter `minCoordinateUncertaintyInMeters` smaller or equal to 1000 meters:
-We write out the data for exploration and analysis.
-
-```{r}
-out_path <- here("data", "interim")
-dir.create(out_path, showWarnings = FALSE, recursive = TRUE)
-
-# Structured data
-## CSV
-write_csv(abv_data_out,
-          file.path(out_path, "abv_data_cube_1km.csv"))
-write_csv(sampling_framework_out,
-          file.path(out_path, "sampling_framework_abv.csv"))
-
-## Spatial object
-write_sf(abv_data_out_sf,
-         file.path(out_path, "abv_data_cube_1km.gpkg"))
-write_sf(sampling_framework_out_sf,
-         file.path(out_path, "sampling_framework_abv.gpkg"))
-
-# Unstructured data
-## CSV
-write_csv(birdcube_data_out,
-          file.path(out_path, "birdflanders_cube_1km.csv"))
-
-## Spatial object
-write_sf(birdcube_data_out_sf,
-         file.path(out_path, "birdflanders_cube_1km.gpkg"))
-```
