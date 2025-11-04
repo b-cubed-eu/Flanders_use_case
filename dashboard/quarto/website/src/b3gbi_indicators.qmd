@@ -5,7 +5,7 @@ title: >
   </a>General indicators
 format:
   html:
-    code-folding: hide
+    code_fold: hide
 ---
 
 ```{r, echo = FALSE}
@@ -102,14 +102,14 @@ PEM_map <-  pielou_evenness_map(Angiosperm_data_cube,
                             region = "Belgium", 
                             shapefile_path = './data/spatial/Flanders.shp')
 
-PEM_map_plot <- plot(PEM_map)
-
 PEM_ts <-  pielou_evenness_ts(Angiosperm_data_cube,
                             level = "country", 
                             region = "Belgium", 
                             shapefile_path = './data/spatial/Flanders.shp')
 
-PEM_ts_plot <- plot(PEM_ts)
+plot(PEM_map)
+
+plot(PEM_ts)
 
 ```
 
@@ -134,14 +134,14 @@ WEM_map <- williams_evenness_map(Angiosperm_data_cube,
                             region = "Belgium", 
                             shapefile_path = './data/spatial/Flanders.shp')
 
-WEM_map_plot <- plot(WEM_map)
-
 WEM_ts <- williams_evenness_ts(Angiosperm_data_cube,
                             level = "country", 
                             region = "Belgium", 
                             shapefile_path = './data/spatial/Flanders.shp')
 
-WEM_ts_plot <- plot(WEM_ts)
+plot(WEM_map)
+
+plot(WEM_ts)
 
 ```
 
@@ -158,217 +158,291 @@ plot(WEM_ts)
 :::
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon="false"}
-## Observed species richness
+## Rarity
 
-This fundamental indicator quantifies the total number of unique species detected within a given spatial unit (e.g., grid cell, for indicator_map) or temporal period (e.g., year, for indicator_ts). It provides a straightforward measure of detected biodiversity.
+Rarity quantifies the scarcity or infrequency of species, and when summed over multiple species, serves as a crucial biodiversity indicator for conservation. b3gbi offers two distinct measures: Abundance-Based Rarity (based on species' proportional occurrences) and Area-Based Rarity (based on species' spatial occupancy). These can be mapped (indicator_map) to identify areas with a higher presence of rare species, or tracked over time (indicator_ts) to observe changes in overall rarity.
+
+### Abundance - Based Rarity
+```{r, eval=FALSE}
+#load library
+library(b3gbi)
+
+AbRM_map <- ab_rarity_map(Angiosperm_data_cube,
+                            level = "country", 
+                            region = "Belgium", 
+                            shapefile_path = './data/spatial/Flanders.shp')
+
+AbRM_ts <- ab_rarity_ts(Angiosperm_data_cube,
+                            level = "country", 
+                            region = "Belgium", 
+                            shapefile_path = './data/spatial/Flanders.shp')
+
+plot(AbRM_map)
+
+plot(AbRM_ts)
+
+```
+
+```{r, echo = FALSE}
+AbRM_map <- readRDS('AbRM_map.rds')
+plot(AbRM_map)
+```
+
+```{r, echo = FALSE}
+AbRM_ts <- readRDS('AbRM_ts.rds')
+plot(AbRM_ts)
+```
+
+### Area-based rarity
+```{r, eval=FALSE}
+#load library
+library(b3gbi)
+
+ArRM_map <-  area_rarity_map(Angiosperm_data_cube,
+                            level = "country", 
+                            region = "Belgium", 
+                            shapefile_path = './data/spatial/Flanders.shp')
+
+ArRM_ts <-  area_rarity_ts(Angiosperm_data_cube,
+                            level = "country", 
+                            region = "Belgium", 
+                            shapefile_path = './data/spatial/Flanders.shp')
+
+plot(ArRM_map)
+
+plot(ArRM_ts)
+
+```
+
+```{r, echo = FALSE}
+ArRM_map <- readRDS('ArRM_map.rds')
+plot(ArRM_map)
+```
+
+```{r, echo = FALSE}
+ArRM_ts <- readRDS('ArRM_ts.rds')
+plot(ArRM_ts)
+```
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon="false"}
+## Estimated Hill Diversity
+
+Hill Diversity provides a unified framework for various diversity measures, allowing for different emphases on rare versus common species through a single parameter, q. b3gbi calculates three common forms: q=0 (approximates Species Richness, weighing all species equally), q=1 (emphasizes common species, like Hill-Shannon), and q=2 (emphasizes very common species, like Hill-Simpson). These indicators represent the "effective number of species" and can be mapped (indicator_map) or tracked over time (indicator_ts) to provide multi-faceted insights into biodiversity patterns.
+
+### Species richness (q=0)
+```{r, eval=FALSE}
+#load library
+library(b3gbi)
+
+#Execute preprocessing step
+SR_map <-  hill0_map(Angiosperm_data_cube,
+                            level = "country", 
+                            region = "Belgium", 
+                            shapefile_path = './data/spatial/Flanders.shp')
+
+SR_ts <-  hill0_ts(Angiosperm_data_cube,
+                            level = "country", 
+                            region = "Belgium", 
+                            shapefile_path = './data/spatial/Flanders.shp')
+
+plot(SR_map)
+
+plot(SR_ts)
+
+```
+
+```{r, echo = FALSE}
+SR_map <- readRDS('SR_map.rds')
+plot(SR_map)
+```
+
+```{r, echo = FALSE}
+SR_ts <- readRDS('SR_ts.rds')
+plot(SR_ts)
+```
+
+### Hill - Shanon (q=1)
+```{r, eval=FALSE}
+#load library
+library(b3gbi)
+
+HSh_map <- hill1_map(Angiosperm_data_cube,
+                            level = "country", 
+                            region = "Belgium", 
+                            shapefile_path = './data/spatial/Flanders.shp')
+
+
+
+HSh_ts <- hill1_ts(Angiosperm_data_cube,
+                            level = "country", 
+                            region = "Belgium", 
+                            shapefile_path = './data/spatial/Flanders.shp')
+
+plot(HSh_map)
+
+plot(HSh_ts)
+
+```
+`
+
+```{r, echo = FALSE}
+HSh_map <- readRDS('HSh_map.rds')
+plot(HSh_map)
+```
+
+```{r, echo = FALSE}
+HSh_ts <- readRDS('HSh_ts.rds')
+plot(HSh_ts)
+```
+
+### Hill - Simpson (q=2)
 
 ```{r, eval=FALSE}
 #load library
 library(b3gbi)
 
 #Execute preprocessing step
-OSR_map <- obs_richness_map(Angiosperm_data_cube,
+HSi_map <- hill2_map(Angiosperm_data_cube,
                             level = "country", 
-                            region = "Belgium",
+                            region = "Belgium", 
                             shapefile_path = './data/spatial/Flanders.shp')
 
-OSR_ts <- obs_richness_ts(Angiosperm_data_cube, 
-                          level = "country", 
-                          region = "Belgium",
+
+HSi_ts <- hill2_ts(Angiosperm_data_cube,
+                            level = "country", 
+                            region = "Belgium" , 
+                            shapefile_path = './data/spatial/Flanders.shp')
+
+plot(HSi_map)
+
+plot(HSi_ts)
+```
+
+```{r, echo = FALSE}
+HSi_map <- readRDS('HSi_map.rds')
+plot(HSi_map)
+```
+
+```{r, echo = FALSE}
+HSi_ts <- readRDS('HSi_ts.rds')
+plot(HSi_ts)
+```
+
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" icon="false"}
+## Cumulative Species Richness
+
+This indicator tracks the total number of unique species observed from the beginning of a specified time period up to a given year. It provides an estimation of how many new species are still being recorded over time within a region, helping to evaluate sampling effort and assess the overall recorded biodiversity over the study duration. This is an inherently temporal indicator, presented as a time series (indicator_ts).
+
+```{r, eval=FALSE}
+#load library
+library(b3gbi)
+
+#Execute preprocessing step
+CR_ts <- cum_richness_ts(Angiosperm_data_cube, 
+                         level = "country", 
+                         region = "Belgium",
                           shapefile_path = './data/spatial/Flanders.shp')
 
-plot(OSR_map)
-
-plot(OSR_ts)
+plot(CR_ts)
 ```
 
 ```{r, echo = FALSE}
-OSR_map <- readRDS('OSR_map.rds')
-plot(OSR_map)
-```
-
-```{r, echo = FALSE}
-OSR_ts <- readRDS('OSR_ts.rds')
+CR_ts <- readRDS('CR_ts.rds')
 plot(OSR_ts)
 ```
 :::
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon="false"}
-## Observed species richness
+## Mean Year of Occurrence (Newness)
 
-This fundamental indicator quantifies the total number of unique species detected within a given spatial unit (e.g., grid cell, for indicator_map) or temporal period (e.g., year, for indicator_ts). It provides a straightforward measure of detected biodiversity.
+This variable calculates the average year of occurrence for all records within a given spatial unit (e.g., grid cell, for indicator_map) or temporal unit (e.g., year, for indicator_ts), providing an estimation of the relative recency of observations. Maps can highlight areas with more recent average records, while time series show the average observation date over cumulative data.
 
 ```{r, eval=FALSE}
 #load library
 library(b3gbi)
 
 #Execute preprocessing step
-OSR_map <- obs_richness_map(Angiosperm_data_cube,
+NN_map <- newness_map(Angiosperm_data_cube,
                             level = "country", 
-                            region = "Belgium",
+                            region = "Belgium", 
                             shapefile_path = './data/spatial/Flanders.shp')
 
-OSR_ts <- obs_richness_ts(Angiosperm_data_cube, 
+#TODO;check dat NA buiten Vlaanderen resultaat niet beïnvloedt?
+NN_ts <- newness_ts(Angiosperm_data_cube, 
                           level = "country", 
                           region = "Belgium",
                           shapefile_path = './data/spatial/Flanders.shp')
 
-plot(OSR_map)
+plot(NN_map)
 
-plot(OSR_ts)
+plot(NN_ts)
 ```
 
 ```{r, echo = FALSE}
-OSR_map <- readRDS('OSR_map.rds')
-plot(OSR_map)
+NN_map <- readRDS('NN_map.rds')
+plot(NN_map)
 ```
 
 ```{r, echo = FALSE}
-OSR_ts <- readRDS('OSR_ts.rds')
-plot(OSR_ts)
+NN_ts <- readRDS('NN_ts.rds')
+plot(NN_ts)
 ```
 :::
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon="false"}
-## Observed species richness
+## Occurrence Density
 
-This fundamental indicator quantifies the total number of unique species detected within a given spatial unit (e.g., grid cell, for indicator_map) or temporal period (e.g., year, for indicator_ts). It provides a straightforward measure of detected biodiversity.
+Occurrence Density measures the spatial concentration of records by calculating the total number of occurrences per square kilometre. This allows for more meaningful comparisons between spatial units of different sizes. It can be displayed as a map (indicator_map) illustrating areas with higher concentrations of records, or as a time series (indicator_ts) showing changes in the rate of recording over time for the study area.
 
 ```{r, eval=FALSE}
 #load library
 library(b3gbi)
 
 #Execute preprocessing step
-OSR_map <- obs_richness_map(Angiosperm_data_cube,
+OD_map <- occ_density_map(Angiosperm_data_cube,
                             level = "country", 
-                            region = "Belgium",
+                            region = "Belgium", 
                             shapefile_path = './data/spatial/Flanders.shp')
 
-OSR_ts <- obs_richness_ts(Angiosperm_data_cube, 
-                          level = "country", 
-                          region = "Belgium",
-                          shapefile_path = './data/spatial/Flanders.shp')
+plot(OD_map)
 
-plot(OSR_map)
-
-plot(OSR_ts)
 ```
 
 ```{r, echo = FALSE}
-OSR_map <- readRDS('OSR_map.rds')
-plot(OSR_map)
+OD_map <- readRDS('OD_map.rds')
+plot(OD_map)
 ```
 
-```{r, echo = FALSE}
-OSR_ts <- readRDS('OSR_ts.rds')
-plot(OSR_ts)
+```{r, echo = FALSE, eval=FALSE}
+OD_ts <- readRDS('OD_ts.rds')
+plot(OD_ts)
 ```
 :::
 
 ::: {.callout-tip collapse="true" appearance="minimal" icon="false"}
-## Observed species richness
+## Occupancy turnover
 
-This fundamental indicator quantifies the total number of unique species detected within a given spatial unit (e.g., grid cell, for indicator_map) or temporal period (e.g., year, for indicator_ts). It provides a straightforward measure of detected biodiversity.
-
-```{r, eval=FALSE}
-#load library
-library(b3gbi)
-
-#Execute preprocessing step
-OSR_map <- obs_richness_map(Angiosperm_data_cube,
-                            level = "country", 
-                            region = "Belgium",
-                            shapefile_path = './data/spatial/Flanders.shp')
-
-OSR_ts <- obs_richness_ts(Angiosperm_data_cube, 
-                          level = "country", 
-                          region = "Belgium",
-                          shapefile_path = './data/spatial/Flanders.shp')
-
-plot(OSR_map)
-
-plot(OSR_ts)
-```
-
-```{r, echo = FALSE}
-OSR_map <- readRDS('OSR_map.rds')
-plot(OSR_map)
-```
-
-```{r, echo = FALSE}
-OSR_ts <- readRDS('OSR_ts.rds')
-plot(OSR_ts)
-```
-:::
-
-::: {.callout-tip collapse="true" appearance="minimal" icon="false"}
-## Observed species richness
-
-This fundamental indicator quantifies the total number of unique species detected within a given spatial unit (e.g., grid cell, for indicator_map) or temporal period (e.g., year, for indicator_ts). It provides a straightforward measure of detected biodiversity.
+Occupancy Turnover measures the rate at which occupancy composition changes over time within a community, quantifying the balance between species "gains" and "losses" between consecutive time intervals. High turnover indicates a dynamic community with frequent species replacement, while low turnover suggests stability. This is an exclusively temporal indicator, presented as a time series (indicator_ts).
 
 ```{r, eval=FALSE}
 #load library
 library(b3gbi)
 
 #Execute preprocessing step
-OSR_map <- obs_richness_map(Angiosperm_data_cube,
-                            level = "country", 
-                            region = "Belgium",
-                            shapefile_path = './data/spatial/Flanders.shp')
+OT_ts <- occ_turnover_ts(Angiosperm_data_cube,
+                         level = "country", 
+                         region = "Belgium", 
+                         shapefile_path = './data/spatial/Flanders.shp')
 
-OSR_ts <- obs_richness_ts(Angiosperm_data_cube, 
-                          level = "country", 
-                          region = "Belgium",
-                          shapefile_path = './data/spatial/Flanders.shp')
+plot(OT_ts)
 
-plot(OSR_map)
-
-plot(OSR_ts)
 ```
 
-```{r, echo = FALSE}
-OSR_map <- readRDS('OSR_map.rds')
-plot(OSR_map)
-```
-
-```{r, echo = FALSE}
-OSR_ts <- readRDS('OSR_ts.rds')
-plot(OSR_ts)
-```
-:::
-
-::: {.callout-tip collapse="true" appearance="minimal" icon="false"}
-## Observed species richness
-
-This fundamental indicator quantifies the total number of unique species detected within a given spatial unit (e.g., grid cell, for indicator_map) or temporal period (e.g., year, for indicator_ts). It provides a straightforward measure of detected biodiversity.
-
-```{r, eval=FALSE}
-#load library
-library(b3gbi)
-
-#Execute preprocessing step
-OSR_map <- obs_richness_map(Angiosperm_data_cube,
-                            level = "country", 
-                            region = "Belgium",
-                            shapefile_path = './data/spatial/Flanders.shp')
-
-OSR_ts <- obs_richness_ts(Angiosperm_data_cube, 
-                          level = "country", 
-                          region = "Belgium",
-                          shapefile_path = './data/spatial/Flanders.shp')
-
-plot(OSR_map)
-
-plot(OSR_ts)
-```
-
-```{r, echo = FALSE}
-OSR_map <- readRDS('OSR_map.rds')
-plot(OSR_map)
-```
-
-```{r, echo = FALSE}
-OSR_ts <- readRDS('OSR_ts.rds')
-plot(OSR_ts)
+```{r, echo = FALSE, eval= FALSE}
+OT_ts <- readRDS('OT_ts.rds')
+plot(OT_ts)
 ```
 :::

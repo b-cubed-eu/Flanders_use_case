@@ -426,7 +426,7 @@ TD_map <- tax_distinct_map(Angiosperm_data_cube,
 TD_map_plot <- plot(TD_map)
 
 #TODO;check dat NA buiten Vlaanderen resultaat niet beïnvloedt?
-TD_ts <- tax_distinct_ts(Angiosperm_data_cube
+TD_ts <- tax_distinct_ts(Angiosperm_data_cube,
                          level = "country", 
                          region = "Belgium",
                          shapefile_path = './data/spatial/Flanders.shp')
