@@ -1,10 +1,22 @@
 ---
-title: "Flanders use case demonstrates B-cubed workflows"
+title: "Flanders use case "
+subtitle: "demonstrating B-cubed workflows"
+image: '_site/images/assets/foto1.jpg'
+about:
+  template: trestles
+  image-shape: round
+  links:
+    - icon: github
+      text: b3gbi
+      href: https://github.com/b-cubed-eu/b3gbi
+    - icon: github
+      text: impIndicator
+      href: https://github.com/b-cubed-eu/impindicator
+    - icon: github
+      text: pdindicatoR
+      href: https://github.com/b-cubed-eu/pdindicatoR
 ---
 
-::: {.callout-caution style="color: gray" appearance="simple"}
-This dashboard is currently under development. It will be finished by 2026-05-30.
-:::
 
 This dashboard showcases developed workflows within [the B-cubed project](https://b-cubed.eu/case-studies) for the region of Flanders, a region of Europe where species occurrence data are abundant.
 
@@ -16,4 +28,4 @@ The implemented indicators in this dashboard can be subdivided into:
 
 -   Invasive Alien Species indicators (based on [impIndicator](https://github.com/b-cubed-eu/impindicator), [TRIAS](https://trias-project.github.io/indicators/) and [b3alien](https://pypi.org/project/b3alien/))
 
-    \
+  

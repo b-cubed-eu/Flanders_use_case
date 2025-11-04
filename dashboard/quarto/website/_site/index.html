@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Flanders use case demonstrates B-cubed workflows – WP6: Flanders case study</title>
+<title>Flanders use case – WP6: Flanders case study</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,7 +35,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -73,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -120,126 +119,50 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
+<div class="quarto-about-trestles">
+  <div class="about-entity">
+    <img src="_site/images/assets/foto1.jpg" class="about-image
+  round " style="height: 20em; width: 20em;">
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Flanders use case demonstrates B-cubed workflows</h1>
+<h1 class="title">Flanders use case</h1>
+<p class="subtitle lead">demonstrating B-cubed workflows</p>
 </div>
-
-
-
 <div class="quarto-title-meta">
-
-    
-  
-    
   </div>
-  
-
-
 </header>
-
-
-<div class="callout callout-style-simple callout-caution" style="color: gray">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+    <div class="about-links">
+  <a href="https://github.com/b-cubed-eu/b3gbi" class="about-link" rel="" target="">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text">b3gbi</span>
+  </a>
+  <a href="https://github.com/b-cubed-eu/impindicator" class="about-link" rel="" target="">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text">impIndicator</span>
+  </a>
+  <a href="https://github.com/b-cubed-eu/pdindicatoR" class="about-link" rel="" target="">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text">pdindicatoR</span>
+  </a>
 </div>
-<div class="callout-body-container">
-<p>This dashboard is currently under development. It will be finished by 2026-05-30.</p>
-</div>
-</div>
-</div>
+  </div>
+  <div class="about-contents"><main class="content" id="quarto-document-content">
 <p>This dashboard showcases developed workflows within <a href="https://b-cubed.eu/case-studies">the B-cubed project</a> for the region of Flanders, a region of Europe where species occurrence data are abundant.</p>
 <p>The implemented indicators in this dashboard can be subdivided into:</p>
 <ul>
 <li><p>General biodiversity indicators (based on <a href="https://github.com/b-cubed-eu/b3gbi">b3gbi</a>, for instance, cumulative species richness, relative species richness, etc.);</p></li>
 <li><p>Phylogenetic indicators (based on <a href="https://github.com/b-cubed-eu/pdindicator">pdindicatoR</a>);</p></li>
-<li><p>Invasive Alien Species indicators (based on <a href="https://github.com/b-cubed-eu/impindicator">impIndicator</a>, <a href="https://trias-project.github.io/indicators/">TRIAS</a> and <a href="https://pypi.org/project/b3alien/">b3alien</a>)</p>
-<p><br>
-</p></li>
+<li><p>Invasive Alien Species indicators (based on <a href="https://github.com/b-cubed-eu/impindicator">impIndicator</a>, <a href="https://trias-project.github.io/indicators/">TRIAS</a> and <a href="https://pypi.org/project/b3alien/">b3alien</a>)</p></li>
 </ul>
 
 
-
-</main> <!-- /main -->
-<script>
-
-document.addEventListener("DOMContentLoaded", function() {
-
-  // Scroll effect voor navbar
-
-  const navbar = document.querySelector(".navbar");
-
-  window.addEventListener("scroll", () => {
-
-    if (window.scrollY > 10) {
-
-      navbar.classList.add("scrolled");
-
-    } else {
-
-      navbar.classList.remove("scrolled");
-
-    }
-
-  });
-
-
-
-  // Dark/light mode toggle
-
-  const toggleButton = document.createElement("button");
-
-  toggleButton.id = "theme-toggle";
-
-  toggleButton.innerText = "🌞 / 🌙";
-
-  document.querySelector(".navbar").appendChild(toggleButton);
-
-
-
-  toggleButton.addEventListener("click", () => {
-
-    const currentTheme = document.documentElement.getAttribute("data-theme");
-
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-
-    document.documentElement.setAttribute("data-theme", newTheme);
-
-    localStorage.setItem("theme", newTheme);
-
-  });
-
-
-
-  // Behoud voorkeur bij refresh
-
-  const savedTheme = localStorage.getItem("theme");
-
-  if (savedTheme) {
-
-    document.documentElement.setAttribute("data-theme", savedTheme);
-
-  }
-
-});
-
-</script>
+</main></div>
+</div>
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     

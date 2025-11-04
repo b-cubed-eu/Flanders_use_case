@@ -2,6 +2,7 @@ project:
   type: website
 
 website:
+  bread-crumbs: true
   title: "WP6: Flanders case study"
   navbar:
     logo: images/assets/B3_logomark.png
@@ -21,8 +22,8 @@ format:
       - cosmo
       - brand
     css: styles.css
-    include-after-body: theme-toggle.js
     toc: true
+    
 
 editor: visual
 

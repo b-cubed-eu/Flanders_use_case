@@ -1,4 +1,4 @@
-/* styles.css – B-Cubed kleurenstijl met scroll-effect + dark/light mode */
+/* styles.css – B-Cubed kleurenstijl met scroll-effect, witte achtergrond */
 
 /* ----------------------------------
    Basis kleuren
@@ -6,21 +6,12 @@
 :root {
   --bc-primary: #005b4f;
   --bc-accent: #00a699;
-  --bc-light-bg: #f5f5f5;
+  --bc-light-bg: #ffffff; /* wit voor consistente achtergrond */
   --bc-dark-text: #333333;
   --bc-light-text: #ffffff;
 
-  /* Extra varianten voor lichte en donkere modi */
   --bc-navbar-bg: var(--bc-primary);
   --bc-navbar-text: var(--bc-light-text);
-}
-
-/* Dark mode variabelen */
-[data-theme="dark"] {
-  --bc-light-bg: #1e1e1e;
-  --bc-dark-text: #e6e6e6;
-  --bc-navbar-bg: #003d36;
-  --bc-accent: #00d0b8;
 }
 
 /* ----------------------------------
@@ -32,7 +23,7 @@
 }
 
 .navbar.scrolled {
-  background-color: rgba(0, 91, 79, 0.9) !important; /* transparanter bij scroll */
+  background-color: rgba(0, 91, 79, 0.9) !important;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
@@ -76,21 +67,9 @@
   background-color: #008777;
 }
 
-/* Toggle button voor dark/light mode */
+/* Toggle button (dark/light mode verwijderd) */
 #theme-toggle {
-  background: none;
-  border: 1px solid var(--bc-accent);
-  color: var(--bc-navbar-text);
-  border-radius: 20px;
-  padding: 4px 10px;
-  cursor: pointer;
-  font-size: 0.9em;
-  transition: all 0.3s ease;
-}
-
-#theme-toggle:hover {
-  background-color: var(--bc-accent);
-  color: var(--bc-light-text);
+  display: none; /* verborgen, omdat dark/light mode is verwijderd */
 }
 
 /* ----------------------------------
