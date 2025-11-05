@@ -34,5 +34,6 @@ google-services.json
 *.hprof
 .Rproj.user
 .Rhistory
+.Renviron
 
-data/raw/*
+preprocessing/data/raw/*
