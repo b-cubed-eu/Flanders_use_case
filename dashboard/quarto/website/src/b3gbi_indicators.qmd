@@ -5,7 +5,8 @@ title: >
   </a>General indicators
 format:
   html:
-    code_fold: hide
+    code-fold: true
+    code-summary: "Show the code"
 ---
 
 ```{r, echo = FALSE}
